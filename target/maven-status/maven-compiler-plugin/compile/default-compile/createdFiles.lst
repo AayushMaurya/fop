@@ -1,9 +1,9 @@
-fop\model\InvoiceForm.class
 fop\service\CreateXMLFileJava.class
-fop\service\GenerateInvoiceService.class
 fop\service\PDFFromFOP.class
-fop\model\OrderItem.class
 fop\spring\WebInitializer.class
 fop\spring\ControllerConfig.class
-fop\controller\GenerateInvoiceController.class
 fop\spring\SpringConfig.class
+fop\model\InvoiceForm.class
+fop\service\GenerateInvoiceService.class
+fop\model\OrderItem.class
+fop\controller\GenerateInvoiceController.class

@@ -1,6 +1,8 @@
 package fop.service;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,8 +19,7 @@ import org.w3c.dom.Element;
 
 public class CreateXMLFileJava {
 
-    public static final String xmlFilePath = "D:\\java_projects\\fop\\src\\main\\resources\\xml" +
-            "\\Invoice.xml";
+    public static final String xmlFilePath = "src/main/resources/xml/Invoice.xml";
 
 
     public void createXML(InvoiceForm invoiceForm) {
@@ -35,40 +36,85 @@ public class CreateXMLFileJava {
             Element root = document.createElement("invoice");
             document.appendChild(root);
 
-            Element customer_name = document.createElement("customer_name");
-            customer_name.appendChild(document.createTextNode(invoiceForm.getCustomerName()));
-            root.appendChild(customer_name);
+            Element customerName = document.createElement("customerName");
+            customerName.appendChild(document.createTextNode(invoiceForm.getCustomerName()));
+            root.appendChild(customerName);
 
-            Element order_id = document.createElement("order_id");
-            order_id.appendChild(document.createTextNode(invoiceForm.getOrderId().toString()));
-            root.appendChild(order_id);
+            Element orderId = document.createElement("orderId");
+            orderId.appendChild(document.createTextNode(invoiceForm.getOrderId().toString()));
+            root.appendChild(orderId);
 
+            Element companyName = document.createElement("companyName");
+            companyName.appendChild(document.createTextNode("Increff"));
+            root.appendChild(companyName);
+
+            Element building = document.createElement("building");
+            building.appendChild(document.createTextNode("Enzyme"));
+            root.appendChild(building);
+
+            Element street = document.createElement("street");
+            street.appendChild(document.createTextNode("5th main street"));
+            root.appendChild(street);
+
+            Element city = document.createElement("city");
+            city.appendChild(document.createTextNode("Bangaluru,"));
+            root.appendChild(city);
+
+            Element invoiceDate = document.createElement("invoiceDate");
+            invoiceDate.appendChild(document.createTextNode(invoiceForm.getPlaceDate().substring(0, 10)));
+            root.appendChild(invoiceDate);
+
+            Element invoiceTime = document.createElement("invoiceTime");
+            invoiceTime.appendChild(document.createTextNode(invoiceForm.getPlaceDate().substring(11, 19)));
+            root.appendChild(invoiceTime);
+
+            System.out.println(invoiceForm.getPlaceDate());
+
+            Element orderItems = document.createElement("orderItems");
+            root.appendChild(orderItems);
+            Double amount = 0.0;
+            int index = 1;
             // order item element
             for (OrderItem o : invoiceForm.getOrderItemList()){
-                Element order_item = document.createElement("order_item");
+                Element orderItem = document.createElement("orderItem");
 
-                root.appendChild(order_item);
+                orderItems.appendChild(orderItem);
+
+//                serial number
+                Element sn = document.createElement("sn");
+                sn.appendChild(document.createTextNode(String.valueOf(index)));
+                orderItem.appendChild(sn);
 
                 // set an attribute to staff element
                 Element id = document.createElement("id");
-                id.appendChild(document.createTextNode("1"));
-                order_item.appendChild(id);
+                id.appendChild(document.createTextNode(o.getOrderItemId().toString()));
+                orderItem.appendChild(id);
 
                 // firstname element
-                Element ProductId = document.createElement("product_name");
-                ProductId.appendChild(document.createTextNode(o.getProductName()));
-                order_item.appendChild(ProductId);
+                Element productName = document.createElement("productName");
+                productName.appendChild(document.createTextNode(o.getProductName()));
+                orderItem.appendChild(productName);
 
                 // lastname element
                 Element quantity = document.createElement("quantity");
                 quantity.appendChild(document.createTextNode(o.getQuantity().toString()));
-                order_item.appendChild(quantity);
+                orderItem.appendChild(quantity);
 
-                Element sellingPrice = document.createElement("selling_price");
+                Element sellingPrice = document.createElement("sellingPrice");
                 sellingPrice.appendChild(document.createTextNode(o.getSellingPrice().toString()));
-                order_item.appendChild(sellingPrice);
+                orderItem.appendChild(sellingPrice);
 
+                Element total = document.createElement("total");
+                total.appendChild(document.createTextNode(String.valueOf(o.getSellingPrice() * o.getQuantity())));
+                orderItem.appendChild(total);
+
+                amount += o.getSellingPrice() * o.getQuantity();
+                index++;
             }
+
+            Element totalAmount = document.createElement("totalAmount");
+            totalAmount.appendChild(document.createTextNode(String.valueOf(amount)));
+            root.appendChild(totalAmount);
             // create the xml file
             //transform the DOM Object to an XML File
             TransformerFactory transformerFactory = TransformerFactory.newInstance();

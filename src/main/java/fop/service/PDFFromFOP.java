@@ -10,11 +10,11 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 public class PDFFromFOP {
-    public void createPDF() {
+    public void createPdf() {
         try {
             File xmlfile = new File("src\\main\\resources\\xml\\Invoice.xml");
             File xsltfile = new File("src\\main\\resources\\xsl\\Invoice.xsl");
-            File pdfDir = new File("./Test");
+            File pdfDir = new File("./src/main/resources/pdf");
             pdfDir.mkdirs();
             File pdfFile = new File(pdfDir, "invoice.pdf");
             System.out.println(pdfFile.getAbsolutePath());

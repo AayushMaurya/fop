@@ -32,7 +32,7 @@ public class GenerateInvoiceController {
 
         service.generateInvoice(form);
 
-        Path pdfPath = Paths.get("./Test/invoice.pdf");
+        Path pdfPath = Paths.get("./src/main/resources/pdf/invoice.pdf");
 
         byte[] contents = Files.readAllBytes(pdfPath);
 

@@ -11,25 +11,25 @@ import java.util.List;
 public class GenerateInvoiceService {
     public void generateInvoice(InvoiceForm form)
     {
-//        print(form);
-        InvoiceForm invoiceForm = new InvoiceForm();
-        invoiceForm.setCustomerName("Aayush");
-        invoiceForm.setOrderId(1);
-        invoiceForm.setPlaceDate("12/12/12");
-
-        List<OrderItem> orderItemList = new ArrayList<>();
-
-        for(int i=1; i<=5; i++)
-        {
-            OrderItem p = new OrderItem();
-            p.setOrderItemId(i);
-            p.setProductName("string" + i);
-            p.setSellingPrice(10.00 + i);
-            p.setQuantity(1+i);
-            orderItemList.add(p);
-        }
-
-        invoiceForm.setOrderItemList(orderItemList);
+        print(form);
+//        InvoiceForm invoiceForm = new InvoiceForm();
+//        invoiceForm.setCustomerName("Aayush");
+//        invoiceForm.setOrderId(1);
+//        invoiceForm.setPlaceDate("12/12/2021 1241w");
+//
+//        List<OrderItem> orderItemList = new ArrayList<>();
+//
+//        for(int i=1; i<=5; i++)
+//        {
+//            OrderItem p = new OrderItem();
+//            p.setOrderItemId(i);
+//            p.setProductName("string" + i);
+//            p.setSellingPrice(10.00 + i);
+//            p.setQuantity(1+i);
+//            orderItemList.add(p);
+//        }
+//
+//        invoiceForm.setOrderItemList(orderItemList);
 
         CreateXMLFileJava createXMLFileJava = new CreateXMLFileJava();
 
@@ -37,7 +37,7 @@ public class GenerateInvoiceService {
 
         PDFFromFOP pdfFromFOP = new PDFFromFOP();
 
-        pdfFromFOP.createPDF();
+        pdfFromFOP.createPdf();
     }
 
     private void print(InvoiceForm form)
